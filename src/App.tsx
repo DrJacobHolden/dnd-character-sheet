@@ -4,14 +4,18 @@ import { RACES } from "./models/Races";
 
 function App() {
   const [race, setRace] = useState(getRaceByName("Dwarf"));
-  function changeRace(event: React.FormEvent<HTMLOptionElement>) {
-    console.log(event);
+  function changeRace() {
+    const select = document.getElementById("race-select");
+    if (select) {
+      // @ts-ignore
+      setRace(getRaceByName(select.value));
+    }
   }
   return (
     <div className="App">
-      <select>
+      <select id="race-select" onChange={changeRace}>
         {RACES.map(race => (
-          <option onChange={changeRace} key={race.name}>
+          <option key={race.name} value={race.name}>
             {race.name}
           </option>
         ))}
